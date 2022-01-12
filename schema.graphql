@@ -1,27 +1,33 @@
 type Product {
+    id: ID!
     name: String!
     description: String!
     category: String
 }
 
-input ProductInput {
-    name: String!
-    description: String!
-}
-
+# output for product mutations
 type ProductPayload {
-    errors: [String!]!
+    error: String       # error message
     product: Product
 }
 
+# input for product mutations
+input ProductInput {
+    name: String!
+    description: String!
+    category: String
+}
+
+
 type Mutation {
-    prdouctCreate(input: ProductInput!): Boolean!
-    productUpdate(productId: ID!, input: ProductInput!): Boolean!
-    productDelete(productId: ID!): Boolean!
+    productCreate(input: ProductInput!): ProductPayload!
+    productUpdate(productId: ID!, input: ProductInput!): ProductPayload!       # product update
+    productUpdateCategory(productId: ID!, category: String): ProductPayload!   # product update specifically for categories
+    productDelete(productId: ID!): ProductPayload!
 }
 
 type Query {
-    product(id: ID!) Product
+    product(productId: ID!): Product
     products: [Product!]!
-    productsByCategory(category: String!): [Product!]!
+    productsByCategory(category: String): [Product!]!
 }
