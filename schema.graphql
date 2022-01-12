@@ -1,0 +1,27 @@
+type Product {
+    name: String!
+    description: String!
+    category: String
+}
+
+input ProductInput {
+    name: String!
+    description: String!
+}
+
+type ProductPayload {
+    errors: [String!]!
+    product: Product
+}
+
+type Mutation {
+    prdouctCreate(input: ProductInput!): Boolean!
+    productUpdate(productId: ID!, input: ProductInput!): Boolean!
+    productDelete(productId: ID!): Boolean!
+}
+
+type Query {
+    product(id: ID!) Product
+    products: [Product!]!
+    productsByCategory(category: String!): [Product!]!
+}
