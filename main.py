@@ -10,11 +10,36 @@ from resolvers import resolvers
 app = FastAPI()
 
 # Temporary memory db
-db = MemoryDB({
-    "1": Product("1", "Eggs", "great eggs", "food"),
-    "2": Product("2", "1984", "1984 by George Orwell. The greatest book of all time", "books"),
-    "3": Product("3", "Mystery Product", "1/10 chance of $500", None)
-})
+db = MemoryDB([
+    Product({
+        'id': '1',
+        'name': '1984',
+        'description': '1984 by George Orwell. The greatest book of all time',
+        'price': 20.0,
+        'category': 'books'
+    }),
+    Product({
+        'id': '2',
+        'name': 'In Order To Live',
+        'description': '"In Order To Live" by Yeonmi Park a north korean girl\'s journey to freedom',
+        'price': 19.99,
+        'category': 'books'
+    }),
+    Product({
+        'id': '3',
+        'name': 'Eggs',
+        'description': '6 eggs',
+        'price': 3.00,
+        'category': 'food'
+    }),
+    Product({
+        'id': '4',
+        'name': 'Mystery Item',
+        'description': 'suspicious box',
+        'price': 100.00,
+        'category': None
+    }),
+])
 
 
 def context_maker(request: Request) -> Context:
