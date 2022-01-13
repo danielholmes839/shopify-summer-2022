@@ -32,7 +32,7 @@ class MemoryDB(DB):
     def insert_product(self, product: Product) -> Product:
         """ insert a product """
         product = product.copy()
-        product.id = self._uuid()
+        product.id = str(uuid4())
         product.validate()
 
         self.products[product.id] = product
@@ -58,9 +58,6 @@ class MemoryDB(DB):
         # delete the product
         product = self.products.pop(id)
         return product.copy()
-
-    def _uuid(self) -> str:
-        return str(uuid4())
 
     def has(self, product_id: str) -> bool:
         """ has product """
