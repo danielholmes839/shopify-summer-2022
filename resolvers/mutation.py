@@ -56,7 +56,7 @@ def update_category(_, ctx: Context, **args):
 
 @mutation.field('productDelete')
 @product_mutation
-def product_delete_resolver(_, ctx: Context, **args):
+def delete(_, ctx: Context, **args):
     """ Delete the product """
     product_id = args['productId']
     return ctx.db.delete_product(product_id)
