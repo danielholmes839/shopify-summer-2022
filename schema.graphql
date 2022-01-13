@@ -2,6 +2,7 @@ type Product {
     id: ID!
     name: String!
     description: String!
+    price: Float!
     category: String
 }
 
@@ -15,6 +16,7 @@ type ProductPayload {
 input ProductInput {
     name: String!
     description: String!
+    price: Float!
     category: String
 }
 
