@@ -1,34 +1,67 @@
-from typing import List, Optional
+from uuid import uuid4
+from typing import List
+
 from .product import Product
 from .db import DB
+from .exceptions import ProductNotFound
 
 
 class MemoryDB(DB):
-    def __init__(self, products):
-        self.products = products
+    def __init__(self, products: List[Product]):
+        self.products = dict([(p.id, p) for p in products])
 
-    def insert_product(self, product: Product) -> bool:
-        self.products[product.id] = product
+    def get_product(self, id: str) -> Product:
+        """ get product """
+        product = self.products.get(id)
+        if product is None:
+            raise ProductNotFound(id)
 
-    def get_product(self, id: str) -> Optional[Product]:
-        return self.products.get(id)
+        return product.copy()
 
     def get_products(self) -> List[Product]:
-        return self.products.values()
+        """ get products """
+        return [p.copy() for p in self.products.values()]
 
-    def get_products_by_collection(self, collection: str) -> List[Product]:
-        return [product for product in self.products.values() if product.collection == collection]
+    def get_products_by_category(self, category: str) -> List[Product]:
+        """ get products by category """
+        return [
+            p.copy() for p in self.products.values()
+            if p.category == category
+        ]
 
-    def update_product(self, product: Product) -> bool:
-        if product.id not in self.products:
-            return False
+    def insert_product(self, product: Product) -> Product:
+        """ insert a product """
+        product = product.copy()
+        product.id = self._uuid()
+        product.validate()
 
         self.products[product.id] = product
-        return True
+        return product
 
-    def delete_product(self, id: str) -> bool:
-        if id not in self.products:
-            return False
+    def update_product(self, product: Product) -> Product:
+        """ update a product """
+        if not self.has(product.id):
+            raise ProductNotFound(product.id)
 
-        del self.products[id]
-        return True
+        # update the product
+        product.validate()
+        product = product.copy()
+        self.products[product.id] = product
+
+        return product
+
+    def delete_product(self, id: str) -> Product:
+        """ delete a product """
+        if not self.has(id):
+            raise ProductNotFound(id)
+
+        # delete the product
+        product = self.products.pop(id)
+        return product.copy()
+
+    def _uuid(self) -> str:
+        return str(uuid4())
+
+    def has(self, product_id: str) -> bool:
+        """ has product """
+        return product_id in self.products
