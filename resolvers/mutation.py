@@ -1,5 +1,5 @@
 from functools import wraps
-from db.product import Product
+from db import Product, ProductNotFound, ProductAttributeException
 from middleware import Context, ObjectTypeWithContext
 
 
@@ -8,15 +8,19 @@ def product_mutation(resolver: callable):
     def wrapper(parent, ctx, **kwargs):
         try:
             product = resolver(parent, ctx, **kwargs)
-            print(product)
             return {
                 'product': product,
                 'error': None
             }
-        except Exception as exception:
+        except (ProductNotFound, ProductAttributeException) as e:
             return {
                 'product': None,
-                'error': repr(exception)
+                'error': repr(e)
+            }
+        except Exception as e:
+            return {
+                'product': None,
+                'error': f'unexpected error: {type(e).__name__}'
             }
 
     return wrapper
