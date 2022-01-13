@@ -20,7 +20,7 @@ class ContextExtension(Extension):
         self.context_maker = context_maker
 
     def request_started(self, context):
-        context['context'] = self.context_maker(context)
+        context['context'] = self.context_maker(context['request'])
 
     def __call__(self):
         # Tricking the framework
