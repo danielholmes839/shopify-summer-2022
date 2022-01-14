@@ -1,6 +1,6 @@
 import pytest
 from app.db import DB, Product, ProductNotFound, ProductAttributeException
-from app_tests.db.helpers import parameterized_db
+from app_tests.helpers import parameterized_db
 
 
 @parameterized_db
