@@ -27,15 +27,14 @@ class Local:
 
 class AWS:
     def __init__(self):
-        self.dynamodb = boto3.resource(
+        dynamodb = boto3.resource(
             'dynamodb',
             region_name=os.environ['AWS_REGION_NAME'],
             aws_access_key_id=os.environ['AWS_ACCESS_KEY'],
             aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY']
         )
 
-        table_name = os.environ['AWS_DYNAMODB_TABLE']
-        self.table = self.dynamodb.Table(table_name)
+        self.table = dynamodb.Table(os.environ['AWS_DYNAMODB_TABLE'])
 
     def context_maker(self, request: Request = None):
         """ Context maker creates a DynamoDB client pointed that the correct partition """
