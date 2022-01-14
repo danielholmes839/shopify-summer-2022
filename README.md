@@ -1,6 +1,7 @@
 # Backend Developer Intern Challenge - Shopify Summer 2022
 
 - GraphQL API
+- Deployed on AWS
  
  ```
 uvicorn main:app
