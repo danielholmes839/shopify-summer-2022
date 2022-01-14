@@ -18,4 +18,4 @@ python -m pytest --cov-report term-missing --cov=db tests/
 
 - Entirely serverless using API-Gateway, Lambda, and DynamoDB
 
-![architecture](./screenshots/aws.PNG)
+![architecture](./screenshots/aws.png)
