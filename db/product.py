@@ -17,7 +17,7 @@ class Product:
         self.price: float = round(product.get('price'), 2)
         self.category: Optional[str] = product.get('category')
 
-    def validate(self, id_required=True):
+    def validate(self):
         """ validation logic for before adding to a database
         - id is required
         - name cannot be empty and cannot exceed 20 characters
@@ -25,7 +25,7 @@ class Product:
         - price must be greater than 0
         - category cannot be empty the default should be "None" which is like null
         """
-        if self.id is None and id_required:
+        if self.id is None:
             raise ProductAttributeException('product id missing')
 
         elif len(self.name) == 0:
@@ -61,4 +61,13 @@ class Product:
         """ formatting for debugging """
         return f'Product({self.id}, {self.name}, {self.price}, {self.category})'
 
+    def __eq__(self, other: "Product") -> bool:
+        return \
+            self.id == other.id and \
+            self.name == other.name and \
+            self.description == other.description and \
+            self.price == other.price and \
+            self.category == other.category
+            
+            
 
