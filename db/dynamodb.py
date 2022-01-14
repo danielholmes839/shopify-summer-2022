@@ -85,9 +85,7 @@ class DynamoDB:
     def parse(self, data: dict) -> Product:
         """ Parse a product returned from dynamodb """
         data['price'] = float(data['price'])
-        if data['category'] == '':
-            data['category'] = None
-
+        
         return Product(data)
 
     def serialize(self, product: Product) -> dict:
@@ -96,9 +94,6 @@ class DynamoDB:
             **self.key(product.id),
             **product.dict()
         }
-
-        if data['category'] is None:
-            data['category'] = ''
 
         data['price'] = Decimal(str(data['price']))
         return data
