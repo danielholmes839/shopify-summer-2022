@@ -11,11 +11,11 @@ uvicorn main:app
 uvicorn main:app --reload
 
 python -m pytest -v
-python -m pytest --cov-report term-missing --cov=db tests/
+python -m pytest --cov-report term-missing --cov=app.db app_tests/
  ```
 
 ## Deployed on AWS
 
-- Entirely serverless using API-Gateway, Lambda, and DynamoDB
+Deployed using a servless architecture on AWS with API-Gateway, Lambda, and DynamoDB.
 
 ![architecture](./screenshots/aws.png)
