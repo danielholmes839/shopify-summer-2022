@@ -23,13 +23,13 @@ input ProductInput {
 
 type Mutation {
     productCreate(input: ProductInput!): ProductPayload!
-    productUpdate(productId: ID!, input: ProductInput!): ProductPayload!       # product update
-    productUpdateCategory(productId: ID!, category: String): ProductPayload!   # product update specifically for categories
-    productDelete(productId: ID!): ProductPayload!
+    productUpdate(id: ID!, input: ProductInput!): ProductPayload!       # product update
+    productUpdateCategory(id: ID!, category: String): ProductPayload!   # product update specifically for categories
+    productDelete(id: ID!): ProductPayload!
 }
 
 type Query {
-    product(productId: ID!): Product
+    product(id: ID!): Product
     products: [Product!]!
     productsByCategory(category: String): [Product!]!
 }
