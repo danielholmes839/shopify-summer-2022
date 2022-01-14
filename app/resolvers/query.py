@@ -1,5 +1,5 @@
-from db.exceptions import ProductNotFound
-from middleware import Context, ObjectTypeWithContext
+from app.db import ProductNotFound
+from app.middleware import Context, ObjectTypeWithContext
 
 
 query = ObjectTypeWithContext('Query')

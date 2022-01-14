@@ -1,7 +1,7 @@
 from ariadne.types import Extension
 from typing import Callable
 from starlette.requests import Request
-from db import DB
+from app.db import DB
 
 
 class Context:

@@ -1,5 +1,5 @@
 import pytest
-from db import Product, ProductAttributeException
+from app.db import Product, ProductAttributeException
 
 
 def test_eq():

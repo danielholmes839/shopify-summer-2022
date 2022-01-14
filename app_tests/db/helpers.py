@@ -1,8 +1,8 @@
-from re import L
 import pytest
 import boto3
-from db import DynamoDB, MemoryDB, DB, Product
+from app.db import DynamoDB, MemoryDB
 from moto import mock_dynamodb2
+
 
 def dynamodb_client(table_name: str, shop_name: str) -> DynamoDB:
     """ Function to intialize a DynamoDB instance """
@@ -38,7 +38,8 @@ def parameterized_db(unit_test: callable):
 
     @pytest.mark.parametrize("db_lambda", databases)
     @mock_dynamodb2
-    def parameterized_test(db_lambda):        # test is callable with the database lambda function passed in
-        return unit_test(db_lambda())  
+    # test is callable with the database lambda function passed in
+    def parameterized_test(db_lambda):
+        return unit_test(db_lambda())
 
     return parameterized_test

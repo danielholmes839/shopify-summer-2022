@@ -3,8 +3,8 @@ import boto3
 from starlette.requests import Request
 from dotenv import load_dotenv
 
-from db import Product, DynamoDB, MemoryDB
-from middleware import Context
+from app.db import Product, DynamoDB, MemoryDB
+from app.middleware import Context
 
 
 load_dotenv('.env')
@@ -12,14 +12,7 @@ load_dotenv('.env')
 
 class Local:
     def __init__(self):
-        self.db = MemoryDB([
-            Product({'id': '1', 'name': '1984', 'description': '1984 by George Orwell. The greatest book of all time',
-                    'price': 20.0, 'category': 'books'}),
-            Product({'id': '2', 'name': 'In Order To Live',
-                    'description': '"In Order To Live" by Yeonmi Park a north korean girl\'s journey to freedom', 'price': 19.99, 'category': 'books'}),
-            Product({'id': '4', 'name': 'Mystery Item',
-                    'description': 'suspicious box', 'price': 100.00, 'category': None}),
-        ])
+        self.db = MemoryDB([])
 
     def context_maker(self, request: Request):
         return Context(request, self.db),

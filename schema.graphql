@@ -8,7 +8,7 @@ type Product {
 
 # output for product mutations
 type ProductPayload {
-    error: String       # error message
+    error: String       # simple error message
     product: Product
 }
 
@@ -20,16 +20,27 @@ input ProductInput {
     category: String
 }
 
-
 type Mutation {
+    # product create operation
     productCreate(input: ProductInput!): ProductPayload!
-    productUpdate(id: ID!, input: ProductInput!): ProductPayload!       # product update
-    productUpdateCategory(id: ID!, category: String): ProductPayload!   # product update specifically for categories
+
+    # product update operation
+    productUpdate(id: ID!, input: ProductInput!): ProductPayload!
+
+    # product update category operation
+    productUpdateCategory(id: ID!, category: String): ProductPayload!
+
+    # product delete operation
     productDelete(id: ID!): ProductPayload!
 }
 
 type Query {
+    # product get by id
     product(id: ID!): Product
+
+    # product get all. #TODO add pagination options 
     products: [Product!]!
+
+    # product get all by category
     productsByCategory(category: String): [Product!]!
 }

@@ -1,7 +1,6 @@
 import pytest
-from db import DB, Product, ProductNotFound
-from db.exceptions import ProductAttributeException
-from tests.db.helpers import parameterized_db
+from app.db import DB, Product, ProductNotFound, ProductAttributeException
+from app_tests.db.helpers import parameterized_db
 
 
 @parameterized_db
@@ -50,7 +49,7 @@ def test_get_products_by_category(db: DB):
 
     assert len(db.get_products_by_category('A')) == 1
     assert len(db.get_products_by_category('B')) == 2
-    assert len(db.get_products_by_category(None)) == 1 
+    assert len(db.get_products_by_category(None)) == 1
 
 
 @parameterized_db
@@ -89,7 +88,7 @@ def test_not_found(db: DB):
     # delete
     with pytest.raises(ProductNotFound):
         db.delete_product('missing')
-    
+
     # update
     with pytest.raises(ProductNotFound):
         db.update_product(Product({
@@ -111,7 +110,7 @@ def test_product_invalid(db: DB):
             'price': -1,
             'category': 'product_category'
         }))
-    
+
     # insert a valid product then update it with an invalid product
     with pytest.raises(ProductAttributeException):
         product = db.insert_product(Product({

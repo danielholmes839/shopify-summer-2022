@@ -1,5 +1,5 @@
-from db import Product, ProductNotFound, ProductAttributeException
-from middleware import Context, ObjectTypeWithContext
+from app.db import Product, ProductNotFound, ProductAttributeException
+from app.middleware import Context, ObjectTypeWithContext
 
 
 def product_payload(resolver: callable):
