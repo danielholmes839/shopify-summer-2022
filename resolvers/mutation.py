@@ -1,4 +1,3 @@
-from functools import wraps
 from db import Product, ProductNotFound, ProductAttributeException
 from middleware import Context, ObjectTypeWithContext
 
@@ -51,7 +50,6 @@ def update_category(_, ctx: Context, id: str, category: str):
     """ productUpdateCategory mutation """
     product = ctx.db.get_product(id)
     product.category = category
-    
     return ctx.db.update_product(product)
 
 
