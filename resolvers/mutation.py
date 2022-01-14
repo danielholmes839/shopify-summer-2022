@@ -3,7 +3,7 @@ from db import Product, ProductNotFound, ProductAttributeException
 from middleware import Context, ObjectTypeWithContext
 
 
-def product_mutation(resolver: callable):
+def product_payload(resolver: callable):
     """ Catches exception and returns a ProductPayload """
     def wrapper(parent, ctx, **kwargs):
         try:
@@ -30,37 +30,33 @@ mutation = ObjectTypeWithContext('Mutation')
 
 
 @mutation.field('productCreate')
-@product_mutation
-def create(_, ctx: Context, **args):
-    product = ctx.db.insert_product(Product(args['input']))
-    return product
+@product_payload
+def create(_, ctx: Context, input: dict):
+    """ productCreate mutation"""
+    product = Product(input)
+    return ctx.db.insert_product(product)
 
 
 @mutation.field('productUpdate')
-@product_mutation
-def update(_, ctx: Context, **args):
-    """ Update a product """
-    product = Product({
-        'id': args['productId'],
-        **args['input']
-    })
-
+@product_payload
+def update(_, ctx: Context, id: str, input: dict):
+    """ productUpdate mutation """
+    product = Product({'id': id, **input})
     return ctx.db.update_product(product)
 
 
 @mutation.field('productUpdateCategory')
-@product_mutation
-def update_category(_, ctx: Context, **args):
-    """ Update the product category """
-    product = ctx.db.get_product(args['productId'])
-    product.category = args['category']
-
+@product_payload
+def update_category(_, ctx: Context, id: str, category: str):
+    """ productUpdateCategory mutation """
+    product = ctx.db.get_product(id)
+    product.category = category
+    
     return ctx.db.update_product(product)
 
 
 @mutation.field('productDelete')
-@product_mutation
-def delete(_, ctx: Context, **args):
-    """ Delete the product """
-    product_id = args['productId']
-    return ctx.db.delete_product(product_id)
+@product_payload
+def delete(_, ctx: Context, id: str):
+    """ productDelete mutation """
+    return ctx.db.delete_product(id)

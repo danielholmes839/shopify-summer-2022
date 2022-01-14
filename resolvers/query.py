@@ -6,10 +6,10 @@ query = ObjectTypeWithContext('Query')
 
 
 @query.field('product')
-def product_resolver(_, ctx: Context, **args):
+def product_resolver(_, ctx: Context, id):
     """ Product by id """
     try:
-        return ctx.db.get_product(args['productId'])
+        return ctx.db.get_product(id)
     except ProductNotFound:
         return None
 
@@ -21,6 +21,6 @@ def products_resolver(_, ctx: Context):
 
 
 @query.field('productsByCategory')
-def products_by_category_resolver(_, ctx: Context, category=None):
+def products_by_category_resolver(_, ctx: Context, category):
     """ All products by category """
     return ctx.db.get_products_by_category(category)
