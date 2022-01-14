@@ -1,4 +1,3 @@
-from lib2to3 import pytree
 import pytest
 from db import DB, Product, ProductNotFound
 from db.exceptions import ProductAttributeException
