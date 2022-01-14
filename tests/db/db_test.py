@@ -7,6 +7,8 @@ from tests.db.helpers import parameterized_db
 @parameterized_db
 def test_insert_get_delete(db: DB):
     """ insert -> get -> delete a product """
+    assert False
+    
     product = Product({
         'name': '1984',
         'description': '1984 by George Orwell. The greatest book of all time',
