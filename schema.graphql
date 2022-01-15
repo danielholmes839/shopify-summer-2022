@@ -1,7 +1,6 @@
 type Item {
     id: ID!
     name: String!
-    description: String!
     price: Float!
     stock: Int!
     collection: String
@@ -9,14 +8,13 @@ type Item {
 
 # output for item mutations
 type ItemPayload {
-    error: String       # simple error message
+    error: String
     item: Item
 }
 
 # input for item mutations
 input ItemInput {
     name: String!
-    description: String!
     price: Float!
     stock: Int!
     collection: String
