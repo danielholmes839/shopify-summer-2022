@@ -15,6 +15,7 @@ class Product:
         self.name: str = product.get('name')
         self.description: str = product.get('description')
         self.price: float = round(product.get('price'), 2)
+        self.stock: int = int(product.get('stock'))
         self.category: Optional[str] = product.get('category')
 
     def validate(self):
@@ -40,6 +41,9 @@ class Product:
         elif self.price <= 0:
             raise ProductAttributeException('product price must be greater than 0')
 
+        elif self.stock < 0:
+            raise ProductAttributeException('product stock must be greater than 0')
+
         elif self.category is not None and len(self.category) == 0:
             raise ProductAttributeException('product category cannot be empty')
 
@@ -54,6 +58,7 @@ class Product:
             'name': self.name,
             'description': self.description,
             'price': self.price,
+            'stock': self.stock,
             'category': self.category
         }
 
@@ -67,6 +72,7 @@ class Product:
             self.name == other.name and \
             self.description == other.description and \
             self.price == other.price and \
+            self.stock == other.stock and \
             self.category == other.category
             
             
