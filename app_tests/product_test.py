@@ -8,10 +8,12 @@ def test_eq():
         'name': 'test_name',
         'description': 'test_description',
         'price': 10.99,
+        'stock': 1,
         'category': None,
     })
 
     assert product == product.copy()
+
 
 def test_validate():
     valid = Product({
@@ -19,6 +21,7 @@ def test_validate():
         'name': 'test_name',
         'description': 'test_description',
         'price': 10.99,
+        'stock': 1,
         'category': None,
     })
 
@@ -28,7 +31,7 @@ def test_validate():
         product = valid.copy()
         product.id = None
         product.validate()
-    
+
     with pytest.raises(ProductAttributeException):
         product = valid.copy()
         product.name = ''
@@ -51,5 +54,10 @@ def test_validate():
 
     with pytest.raises(ProductAttributeException):
         product = valid.copy()
-        product.category = '' # must use None
+        product.stock = -1
+        product.validate()
+
+    with pytest.raises(ProductAttributeException):
+        product = valid.copy()
+        product.category = ''  # must use None
         product.validate()

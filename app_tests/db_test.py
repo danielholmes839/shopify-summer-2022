@@ -1,17 +1,30 @@
+from math import prod
 import pytest
 from app.db import DB, Product, ProductNotFound, ProductAttributeException
 from app_tests.helpers import parameterized_db
 
 
+data = {
+    'name': 'test_name',
+    'description': 'test_description',
+    'price': 1,
+    'stock': 2,
+    'category': None
+}
+
+data2 = {
+    'name': 'new_test_name',
+    'description': 'new_test_description',
+    'price': 10,
+    'stock': 20,
+    'category': 'new_test_category'
+}
+
+
 @parameterized_db
 def test_insert_get_delete(db: DB):
     """ insert -> get -> delete a product """
-    product = Product({
-        'name': '1984',
-        'description': '1984 by George Orwell. The greatest book of all time',
-        'price': 20.0,
-        'category': None
-    })
+    product = Product(data)
 
     assert product.id is None
 
@@ -39,40 +52,34 @@ def test_insert_get_delete(db: DB):
 
 @parameterized_db
 def test_get_products_by_category(db: DB):
-    for category in ['A', 'B', 'B', None]:
-        db.insert_product(Product({
-            'name': 'product_name',
-            'description': 'product_description',
-            'price': 9.99,
-            'category': category
-        }))
+    categories = ['A', 'B', 'B', None]
 
+    for category in categories:
+        product = Product(data)
+        product.category = category
+        db.insert_product(product)
+
+    # check for the correct amounts
     assert len(db.get_products_by_category('A')) == 1
     assert len(db.get_products_by_category('B')) == 2
     assert len(db.get_products_by_category(None)) == 1
+
+    # check for the correct categories
+    for category in set(categories):
+        assert all([
+            product.category == category
+            for product in db.get_products_by_category(category)
+        ])
 
 
 @parameterized_db
 def test_update(db: DB):
     # insert a product
-    inserted = db.insert_product(Product({
-        'name': 'product_name',
-        'description': 'product_description',
-        'price': 1,
-        'category': 'product_category'
-    }))
+    inserted = db.insert_product(Product(data))
 
     # update the product
-    expected = Product({
-        'id': inserted.id,
-        'name': 'new_product_name',
-        'description': 'new_product_description',
-        'price': 2,
-        'category': 'new_product_category'
-    })
-
-    updated = db.update_product(expected)
-    assert expected == updated
+    expected = Product({'id': inserted.id, **data2})
+    db.update_product(expected)
 
     # query the product
     actual = db.get_product(inserted.id)
@@ -91,34 +98,21 @@ def test_not_found(db: DB):
 
     # update
     with pytest.raises(ProductNotFound):
-        db.update_product(Product({
-            'id': 'missing',
-            'name': 'product_name',
-            'description': 'product_description',
-            'price': 1,
-            'category': 'product_category'
-        }))
+        product = Product({'id': 'missing', **data})
+        db.update_product(product)
 
 
 @parameterized_db
 def test_product_invalid(db: DB):
     # insert an invalid product
     with pytest.raises(ProductAttributeException):
-        db.insert_product(Product({
-            'name': 'product_name',
-            'description': 'product_description',
-            'price': -1,
-            'category': 'product_category'
-        }))
+        product = Product(data)
+        product.price = -1
+        db.insert_product(product)
 
     # insert a valid product then update it with an invalid product
     with pytest.raises(ProductAttributeException):
-        product = db.insert_product(Product({
-            'name': 'product_name',
-            'description': 'product_description',
-            'price': 1,
-            'category': 'product_category'
-        }))
-
+        product = db.insert_product(Product(data))
         product.price = -1
+
         db.update_product(product)
