@@ -1,8 +1,8 @@
 type Item {
     id: ID!
-    name: String!
-    price: Float!
-    stock: Int!
+    product: String!        
+    price: Float!            # unit cost of the inventory is indepedent of price 
+    stock: Int!             # unit s
     collection: String
 }
 
@@ -14,7 +14,7 @@ type ItemPayload {
 
 # input for item mutations
 input ItemInput {
-    name: String!
+    product: String!
     price: Float!
     stock: Int!
     collection: String

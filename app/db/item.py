@@ -12,8 +12,7 @@ class Item:
         - the price is automatically rounded to 2 decimal places
         """
         self.id: str = item.get('id')
-        self.name: str = item.get('name')
-        self.description: str = item.get('description')
+        self.product: str = item.get('product')
         self.price: float = round(item.get('price'), 2)
         self.stock: int = int(item.get('stock'))
         self.collection: Optional[str] = item.get('collection')
@@ -21,24 +20,19 @@ class Item:
     def validate(self):
         """ validation logic for before adding to a database
         - id is required
-        - name cannot be empty and cannot exceed 20 characters
-        - description cannot exceed 200 characters
+        - product name cannot be empty and cannot exceed 20 characters
         - price must be greater than 0
         - collection cannot be empty the default should be "None" which is like null
         """
         if self.id is None:
             raise ItemAttributeException('item id missing')
 
-        elif len(self.name) == 0:
-            raise ItemAttributeException('item name cannot be empty')
+        elif len(self.product) == 0:
+            raise ItemAttributeException('product cannot be empty')
 
-        elif len(self.name) > 20:
+        elif len(self.product) > 20:
             raise ItemAttributeException(
-                'item name cannot exceed 20 characters')
-
-        elif len(self.description) > 200:
-            raise ItemAttributeException(
-                'item description cannot exceed 200 characters')
+                'product cannot exceed 20 characters')
 
         elif self.price <= 0:
             raise ItemAttributeException('item price must be greater than 0')
@@ -57,8 +51,7 @@ class Item:
         """ create a dictionary of the item """
         return {
             'id': self.id,
-            'name': self.name,
-            'description': self.description,
+            'product': self.product,
             'price': self.price,
             'stock': self.stock,
             'collection': self.collection
@@ -66,13 +59,12 @@ class Item:
 
     def __repr__(self) -> str:
         """ formatting for debugging """
-        return f'Item({self.id}, {self.name}, {self.price}, {self.collection})'
+        return f'Item({self.id}, {self.product}, {self.price}, {self.collection})'
 
     def __eq__(self, other: "Item") -> bool:
         return \
             self.id == other.id and \
-            self.name == other.name and \
-            self.description == other.description and \
+            self.product == other.product and \
             self.price == other.price and \
             self.stock == other.stock and \
             self.collection == other.collection

@@ -5,8 +5,7 @@ from app.db import Item, ItemAttributeException
 def test_eq():
     item = Item({
         'id': 'test_id',
-        'name': 'test_name',
-        'description': 'test_description',
+        'product': 'test_product',
         'price': 10.99,
         'stock': 1,
         'collection': None,
@@ -18,8 +17,7 @@ def test_eq():
 def test_validate():
     valid = Item({
         'id': 'test_id',
-        'name': 'test_name',
-        'description': 'test_description',
+        'product': 'test_product',
         'price': 10.99,
         'stock': 1,
         'collection': None,
@@ -34,17 +32,12 @@ def test_validate():
 
     with pytest.raises(ItemAttributeException):
         item = valid.copy()
-        item.name = ''
+        item.product = ''
         item.validate()
 
     with pytest.raises(ItemAttributeException):
         item = valid.copy()
-        item.name = 'X'*21
-        item.validate()
-
-    with pytest.raises(ItemAttributeException):
-        item = valid.copy()
-        item.description = 'X'*201
+        item.product = 'X'*21
         item.validate()
 
     with pytest.raises(ItemAttributeException):

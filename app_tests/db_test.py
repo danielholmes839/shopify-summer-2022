@@ -5,16 +5,14 @@ from app_tests.helpers import parameterized_db
 
 
 data = {
-    'name': 'test_name',
-    'description': 'test_description',
+    'product': 'test_product',
     'price': 1,
     'stock': 2,
     'collection': None
 }
 
 data2 = {
-    'name': 'new_test_name',
-    'description': 'new_test_description',
+    'product': 'new_test_product',
     'price': 10,
     'stock': 20,
     'collection': 'new_test_collection'
