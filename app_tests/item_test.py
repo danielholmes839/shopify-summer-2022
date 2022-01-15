@@ -9,6 +9,8 @@ def test_eq():
         'cost': 10.99,
         'stock': 1,
         'collection': None,
+        'created_at': '',
+        'updated_at': '',
     })
 
     assert item == item.copy()
@@ -21,6 +23,8 @@ def test_validate():
         'cost': 10.99,
         'stock': 1,
         'collection': None,
+        'created_at': '',
+        'updated_at': '',
     })
 
     valid.validate()

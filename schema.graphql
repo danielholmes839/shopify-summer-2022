@@ -1,9 +1,14 @@
+scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
+
 type Item {
     id: ID!
     product: String!        
     cost: Float!            # unit cost of the inventory is indepedent of cost 
     stock: Int!             # units available
     collection: String
+
+    createdAt: DateTime
+    updatedAt: DateTime
 }
 
 # output for item mutations

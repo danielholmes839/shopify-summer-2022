@@ -2,6 +2,7 @@ from uuid import uuid4
 from typing import List
 
 from .item import Item
+from .helpers import now
 from .db import DB
 from .exceptions import ItemNotFound
 
@@ -33,6 +34,11 @@ class MemoryDB(DB):
         """ insert a item """
         item = item.copy()
         item.id = str(uuid4())
+
+        t = now()
+        item.created_at = t
+        item.updated_at = t
+
         item.validate()
 
         self.items[item.id] = item
@@ -44,8 +50,10 @@ class MemoryDB(DB):
             raise ItemNotFound(item.id)
 
         # update the item
-        item.validate()
         item = item.copy()
+        item.updated_at = now()
+        item.validate()
+
         self.items[item.id] = item
 
         return item

@@ -1,4 +1,3 @@
-from math import prod
 import pytest
 from app.db import DB, Item, ItemNotFound, ItemAttributeException
 from app_tests.helpers import parameterized_db
@@ -76,7 +75,8 @@ def test_update(db: DB):
     inserted = db.insert_item(Item(data))
 
     # update the item
-    expected = Item({'id': inserted.id, **data2})
+    expected = Item(
+        {'id': inserted.id, 'created_at': inserted.created_at, **data2})
     db.update_item(expected)
 
     # query the item
@@ -96,7 +96,7 @@ def test_not_found(db: DB):
 
     # update
     with pytest.raises(ItemNotFound):
-        item = Item({'id': 'missing', **data})
+        item = Item({'id': 'missing', 'created_at': '', **data})
         db.update_item(item)
 
 

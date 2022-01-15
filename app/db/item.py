@@ -16,6 +16,8 @@ class Item:
         self.cost: float = round(item.get('cost'), 2)
         self.stock: int = int(item.get('stock'))
         self.collection: Optional[str] = item.get('collection')
+        self.created_at: str = item.get('created_at')
+        self.updated_at: str = item.get('updated_at')
 
     def validate(self):
         """ validation logic for before adding to a database
@@ -43,6 +45,12 @@ class Item:
         elif self.collection is not None and len(self.collection) == 0:
             raise ItemAttributeException('item collection cannot be empty')
 
+        elif self.created_at is None:
+            raise ItemAttributeException('item created_at is missing')
+
+        elif self.updated_at is None:
+            raise ItemAttributeException('item updated_at is missing')
+
     def copy(self):
         """ create a copy of the item """
         return Item(self.dict())
@@ -54,7 +62,9 @@ class Item:
             'product': self.product,
             'cost': self.cost,
             'stock': self.stock,
-            'collection': self.collection
+            'collection': self.collection,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }
 
     def __repr__(self) -> str:

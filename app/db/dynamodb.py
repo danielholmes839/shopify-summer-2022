@@ -1,9 +1,11 @@
+from re import T
 from boto3.dynamodb.conditions import Key, Attr
 from uuid import uuid4
 from typing import List
 from decimal import Decimal
 
 from .item import Item
+from .helpers import now
 from .exceptions import ItemNotFound
 
 
@@ -54,6 +56,9 @@ class DynamoDB:
         # assign a new uuid to the item
         item = item.copy()
         item.id = str(uuid4())
+        t = now()
+        item.created_at = t
+        item.updated_at = t
         item.validate()
 
         # serialize and insert the item
@@ -64,6 +69,7 @@ class DynamoDB:
 
     def update_item(self, item: Item) -> Item:
         item.copy()
+        item.updated_at = now()
         item.validate()
 
         # raises an exception if the item doesn't exist
