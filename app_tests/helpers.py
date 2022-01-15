@@ -4,7 +4,7 @@ from app.db import DynamoDB, MemoryDB
 from moto import mock_dynamodb2
 
 
-def dynamodb_client(table_name: str, shop_name: str) -> DynamoDB:
+def dynamodb_client(table_name: str, inventory_name: str) -> DynamoDB:
     """ Function to intialize a DynamoDB instance """
     dynamodb = boto3.resource(
         'dynamodb',
@@ -26,14 +26,14 @@ def dynamodb_client(table_name: str, shop_name: str) -> DynamoDB:
     )
 
     table = dynamodb.Table(table_name)
-    return DynamoDB(table, shop_name)
+    return DynamoDB(table, inventory_name)
 
 
 def parameterized_db(unit_test: callable):
     """ Parameterized databases decorator"""
     databases = [
         (lambda: MemoryDB([])),
-        (lambda: dynamodb_client('table', 'shop'))
+        (lambda: dynamodb_client('table', 'inventory'))
     ]
 
     @pytest.mark.parametrize("db_lambda", databases)

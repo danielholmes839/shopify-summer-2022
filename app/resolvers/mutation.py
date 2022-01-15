@@ -1,24 +1,24 @@
-from app.db import Product, ProductNotFound, ProductAttributeException
+from app.db import Item, ItemNotFound, ItemAttributeException
 from app.middleware import Context, ObjectTypeWithContext
 
 
-def product_payload(resolver: callable):
-    """ Catches exception and returns a ProductPayload """
+def item_payload(resolver: callable):
+    """ Catches exception and returns a ItemPayload """
     def wrapper(parent, ctx, **kwargs):
         try:
-            product = resolver(parent, ctx, **kwargs)
+            item = resolver(parent, ctx, **kwargs)
             return {
-                'product': product,
+                'item': item,
                 'error': None
             }
-        except (ProductNotFound, ProductAttributeException) as e:
+        except (ItemNotFound, ItemAttributeException) as e:
             return {
-                'product': None,
+                'item': None,
                 'error': repr(e)
             }
         except Exception as e:
             return {
-                'product': None,
+                'item': None,
                 'error': f'unexpected error: {type(e).__name__}'
             }
 
@@ -28,33 +28,33 @@ def product_payload(resolver: callable):
 mutation = ObjectTypeWithContext('Mutation')
 
 
-@mutation.field('productCreate')
-@product_payload
+@mutation.field('itemCreate')
+@item_payload
 def create(_, ctx: Context, input: dict):
-    """ productCreate mutation"""
-    product = Product(input)
-    return ctx.db.insert_product(product)
+    """ itemCreate mutation"""
+    item = Item(input)
+    return ctx.db.insert_item(item)
 
 
-@mutation.field('productUpdate')
-@product_payload
+@mutation.field('itemUpdate')
+@item_payload
 def update(_, ctx: Context, id: str, input: dict):
-    """ productUpdate mutation """
-    product = Product({'id': id, **input})
-    return ctx.db.update_product(product)
+    """ itemUpdate mutation """
+    item = Item({'id': id, **input})
+    return ctx.db.update_item(item)
 
 
-@mutation.field('productUpdateCategory')
-@product_payload
-def update_category(_, ctx: Context, id: str, category: str):
-    """ productUpdateCategory mutation """
-    product = ctx.db.get_product(id)
-    product.category = category
-    return ctx.db.update_product(product)
+@mutation.field('itemUpdateCollection')
+@item_payload
+def update_collection(_, ctx: Context, id: str, collection: str = None):
+    """ itemUpdateCollection mutation """
+    item = ctx.db.get_item(id)
+    item.collection = collection
+    return ctx.db.update_item(item)
 
 
-@mutation.field('productDelete')
-@product_payload
+@mutation.field('itemDelete')
+@item_payload
 def delete(_, ctx: Context, id: str):
-    """ productDelete mutation """
-    return ctx.db.delete_product(id)
+    """ itemDelete mutation """
+    return ctx.db.delete_item(id)

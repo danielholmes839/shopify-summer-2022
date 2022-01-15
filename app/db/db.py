@@ -1,30 +1,30 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from .product import Product
+from .item import Item
 
 
 class DB(ABC):
     @abstractmethod
-    def get_product(self, id: str) -> Product:
+    def get_item(self, id: str) -> Item:
         pass
 
     @abstractmethod
-    def get_products(self) -> List[Product]:
+    def get_items(self) -> List[Item]:
         pass
 
     @abstractmethod
-    def get_products_by_category(self, category: str) -> List[Product]:
-        pass
-    
-    @abstractmethod
-    def insert_product(self, product: Product) -> Product:
+    def get_items_by_collection(self, collection: str) -> List[Item]:
         pass
 
     @abstractmethod
-    def update_product(self, product: Product) -> Product:
+    def insert_item(self, item: Item) -> Item:
         pass
 
     @abstractmethod
-    def delete_product(self, id: str) -> Product:
+    def update_item(self, item: Item) -> Item:
+        pass
+
+    @abstractmethod
+    def delete_item(self, id: str) -> Item:
         pass

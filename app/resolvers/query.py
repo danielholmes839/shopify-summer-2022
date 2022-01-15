@@ -1,26 +1,26 @@
-from app.db import ProductNotFound
+from app.db import ItemNotFound
 from app.middleware import Context, ObjectTypeWithContext
 
 
 query = ObjectTypeWithContext('Query')
 
 
-@query.field('product')
-def product_resolver(_, ctx: Context, id):
-    """ Product by id """
+@query.field('item')
+def item_resolver(_, ctx: Context, id):
+    """ Item by id """
     try:
-        return ctx.db.get_product(id)
-    except ProductNotFound:
+        return ctx.db.get_item(id)
+    except ItemNotFound:
         return None
 
 
-@query.field('products')
-def products_resolver(_, ctx: Context):
-    """ All products """
-    return ctx.db.get_products()
+@query.field('items')
+def items_resolver(_, ctx: Context):
+    """ All items """
+    return ctx.db.get_items()
 
 
-@query.field('productsByCategory')
-def products_by_category_resolver(_, ctx: Context, category):
-    """ All products by category """
-    return ctx.db.get_products_by_category(category)
+@query.field('itemsByCollection')
+def items_by_collection_resolver(_, ctx: Context, collection):
+    """ All items by collection """
+    return ctx.db.get_items_by_collection(collection)

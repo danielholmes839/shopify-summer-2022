@@ -1,48 +1,51 @@
-type Product {
+type Item {
     id: ID!
     name: String!
     description: String!
     price: Float!
     stock: Int!
-    category: String
+    collection: String
 }
 
-# output for product mutations
-type ProductPayload {
+# output for item mutations
+type ItemPayload {
     error: String       # simple error message
-    product: Product
+    item: Item
 }
 
-# input for product mutations
-input ProductInput {
+# input for item mutations
+input ItemInput {
     name: String!
     description: String!
     price: Float!
     stock: Int!
-    category: String
+    collection: String
 }
 
 type Mutation {
-    # product create operation
-    productCreate(input: ProductInput!): ProductPayload!
+    # item create operation
+    itemCreate(input: ItemInput!): ItemPayload!
 
-    # product update operation
-    productUpdate(id: ID!, input: ProductInput!): ProductPayload!
+    # item update operation
+    itemUpdate(id: ID!, input: ItemInput!): ItemPayload!
 
-    # product update category operation
-    productUpdateCategory(id: ID!, category: String): ProductPayload!
+    # item update collection
+    itemUpdateCollection(id: ID!, collection: String): ItemPayload!
 
-    # product delete operation
-    productDelete(id: ID!): ProductPayload!
+    # item update collection operation
+    itemUpdateStock(id: ID!, diff: Int!): ItemPayload!
+
+    # item delete operation
+    itemDelete(id: ID!): ItemPayload!
 }
 
 type Query {
-    # product get by id
-    product(id: ID!): Product
+    # item get by id
+    item(id: ID!): Item
 
-    # product get all. #TODO add pagination options 
-    products: [Product!]!
+    # item get all. #TODO add pagination options 
+    items: [Item!]!
 
-    # product get all by category
-    productsByCategory(category: String): [Product!]!
+    # item get all by collection
+    itemsByCollection(collection: String): [Item!]!
 }

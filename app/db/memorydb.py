@@ -1,64 +1,64 @@
 from uuid import uuid4
 from typing import List
 
-from .product import Product
+from .item import Item
 from .db import DB
-from .exceptions import ProductNotFound
+from .exceptions import ItemNotFound
 
 
 class MemoryDB(DB):
-    def __init__(self, products: List[Product]):
-        self.products = dict([(p.id, p) for p in products])
+    def __init__(self, items: List[Item]):
+        self.items = dict([(p.id, p) for p in items])
 
-    def get_product(self, id: str) -> Product:
-        """ get product """
-        product = self.products.get(id)
-        if product is None:
-            raise ProductNotFound(id)
+    def get_item(self, id: str) -> Item:
+        """ get item """
+        item = self.items.get(id)
+        if item is None:
+            raise ItemNotFound(id)
 
-        return product.copy()
+        return item.copy()
 
-    def get_products(self) -> List[Product]:
-        """ get products """
-        return [p.copy() for p in self.products.values()]
+    def get_items(self) -> List[Item]:
+        """ get items """
+        return [p.copy() for p in self.items.values()]
 
-    def get_products_by_category(self, category: str) -> List[Product]:
-        """ get products by category """
+    def get_items_by_collection(self, collection: str) -> List[Item]:
+        """ get items by collection """
         return [
-            p.copy() for p in self.products.values()
-            if p.category == category
+            p.copy() for p in self.items.values()
+            if p.collection == collection
         ]
 
-    def insert_product(self, product: Product) -> Product:
-        """ insert a product """
-        product = product.copy()
-        product.id = str(uuid4())
-        product.validate()
+    def insert_item(self, item: Item) -> Item:
+        """ insert a item """
+        item = item.copy()
+        item.id = str(uuid4())
+        item.validate()
 
-        self.products[product.id] = product
-        return product
+        self.items[item.id] = item
+        return item
 
-    def update_product(self, product: Product) -> Product:
-        """ update a product """
-        if not self.has(product.id):
-            raise ProductNotFound(product.id)
+    def update_item(self, item: Item) -> Item:
+        """ update a item """
+        if not self.has(item.id):
+            raise ItemNotFound(item.id)
 
-        # update the product
-        product.validate()
-        product = product.copy()
-        self.products[product.id] = product
+        # update the item
+        item.validate()
+        item = item.copy()
+        self.items[item.id] = item
 
-        return product
+        return item
 
-    def delete_product(self, id: str) -> Product:
-        """ delete a product """
+    def delete_item(self, id: str) -> Item:
+        """ delete a item """
         if not self.has(id):
-            raise ProductNotFound(id)
+            raise ItemNotFound(id)
 
-        # delete the product
-        product = self.products.pop(id)
-        return product.copy()
+        # delete the item
+        item = self.items.pop(id)
+        return item.copy()
 
-    def has(self, product_id: str) -> bool:
-        """ has product """
-        return product_id in self.products
+    def has(self, item_id: str) -> bool:
+        """ has item """
+        return item_id in self.items

@@ -3,30 +3,30 @@ from uuid import uuid4
 from typing import List
 from decimal import Decimal
 
-from .product import Product
-from .exceptions import ProductNotFound
+from .item import Item
+from .exceptions import ItemNotFound
 
 
 class DynamoDB:
-    def __init__(self, table, shop: str):
+    def __init__(self, table, inventory: str):
         """ DynamoDB access """
         self.table = table  # table resource
-        self.shop = shop
+        self.inventory = inventory
 
-    def get_product(self, id: str) -> Product:
-        """ get product by id"""
+    def get_item(self, id: str) -> Item:
+        """ get item by id"""
         response = self.table.get_item(Key=self.key(id))
 
         if 'Item' not in response:
-            raise ProductNotFound(id)
+            raise ItemNotFound(id)
 
         return self.parse(response['Item'])
 
-    def get_products(self) -> List[Product]:
+    def get_items(self) -> List[Item]:
         # key conditions
         conditions = \
-            Key('PK').eq(f'SHOP#{self.shop}') & \
-            Key('SK').begins_with('PRODUCT')
+            Key('PK').eq(f'INVENTORY#{self.inventory}') & \
+            Key('SK').begins_with('ITEM')
 
         response = self.table.query(
             KeyConditionExpression=conditions
@@ -34,65 +34,65 @@ class DynamoDB:
 
         return [self.parse(item) for item in response['Items']]
 
-    def get_products_by_category(self, category: str) -> List[Product]:
-        """ get products by category """
+    def get_items_by_collection(self, collection: str) -> List[Item]:
+        """ get items by collection """
         conditions = \
-            Key('PK').eq(f'SHOP#{self.shop}') & \
-            Key('SK').begins_with('PRODUCT')
-        
+            Key('PK').eq(f'INVENTORY#{self.inventory}') & \
+            Key('SK').begins_with('ITEM')
+
         # TODO add an index do make this query more efficient
         response = self.table.query(
             KeyConditionExpression=conditions,
-            FilterExpression=Attr('category').eq(category)
+            FilterExpression=Attr('collection').eq(collection)
         )
 
         return [self.parse(item) for item in response['Items']]
 
-    def insert_product(self, product: Product) -> Product:
-        """ Insert the product in dynamodb"""
+    def insert_item(self, item: Item) -> Item:
+        """ Insert the item in dynamodb"""
 
-        # assign a new uuid to the product
-        product = product.copy()
-        product.id = str(uuid4())
-        product.validate()
+        # assign a new uuid to the item
+        item = item.copy()
+        item.id = str(uuid4())
+        item.validate()
 
-        # serialize and insert the product
-        data = self.serialize(product)
+        # serialize and insert the item
+        data = self.serialize(item)
         self.table.put_item(Item=data)
 
-        return product
+        return item
 
-    def update_product(self, product: Product) -> Product:
-        product.copy()
-        product.validate()
+    def update_item(self, item: Item) -> Item:
+        item.copy()
+        item.validate()
 
-        # raises an exception if the product doesn't exist
-        self.get_product(product.id)
+        # raises an exception if the item doesn't exist
+        self.get_item(item.id)
 
-        # serialize and update the product
-        data = self.serialize(product)
+        # serialize and update the item
+        data = self.serialize(item)
         self.table.put_item(Item=data)
 
-        return product
+        return item
 
-    def delete_product(self, id: str) -> Product:
-        # raises an exception if the product doesn't exist
-        product = self.get_product(id)
+    def delete_item(self, id: str) -> Item:
+        # raises an exception if the item doesn't exist
+        item = self.get_item(id)
 
         self.table.delete_item(Key=self.key(id))
-        return product
+        return item
 
-    def parse(self, data: dict) -> Product:
-        """ Parse a product returned from dynamodb """
+    def parse(self, data: dict) -> Item:
+        """ Parse a item returned from dynamodb """
         data['price'] = float(data['price'])
-        
-        return Product(data)
 
-    def serialize(self, product: Product) -> dict:
-        """ Serializes a product  """
+        return Item(data)
+
+    def serialize(self, item: Item) -> dict:
+        """ Serializes a item  """
         data = {
-            **self.key(product.id),
-            **product.dict()
+            **self.key(item.id),
+            **item.dict()
         }
 
         data['price'] = Decimal(str(data['price']))
@@ -101,6 +101,6 @@ class DynamoDB:
     def key(self, id: str) -> dict:
         """ Creates the DynamoDB composite key"""
         return {
-            'PK': f'SHOP#{self.shop}',
-            'SK': f'PRODUCT#{id}',
+            'PK': f'INVENTORY#{self.inventory}',
+            'SK': f'ITEM#{id}',
         }

@@ -26,9 +26,9 @@ class AWSContextMaker:
 
     def __call__(self, request: Request = None):
         """ Context maker creates a DynamoDB client pointed that the correct partition """
-        shop = request.headers.get('shop')
-        if shop is None:
-            shop = 'default'
+        inventory = request.headers.get('inventory')
+        if inventory is None:
+            inventory = 'default'
 
-        db = DynamoDB(self.table, shop)
+        db = DynamoDB(self.table, inventory)
         return Context(request, db)
