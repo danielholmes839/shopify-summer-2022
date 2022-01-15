@@ -84,7 +84,7 @@ class DynamoDB:
 
     def parse(self, data: dict) -> Item:
         """ Parse a item returned from dynamodb """
-        data['price'] = float(data['price'])
+        data['cost'] = float(data['cost'])
 
         return Item(data)
 
@@ -95,7 +95,7 @@ class DynamoDB:
             **item.dict()
         }
 
-        data['price'] = Decimal(str(data['price']))
+        data['cost'] = Decimal(str(data['cost']))
         return data
 
     def key(self, id: str) -> dict:

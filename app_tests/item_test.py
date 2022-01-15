@@ -6,7 +6,7 @@ def test_eq():
     item = Item({
         'id': 'test_id',
         'product': 'test_product',
-        'price': 10.99,
+        'cost': 10.99,
         'stock': 1,
         'collection': None,
     })
@@ -18,7 +18,7 @@ def test_validate():
     valid = Item({
         'id': 'test_id',
         'product': 'test_product',
-        'price': 10.99,
+        'cost': 10.99,
         'stock': 1,
         'collection': None,
     })
@@ -42,7 +42,7 @@ def test_validate():
 
     with pytest.raises(ItemAttributeException):
         item = valid.copy()
-        item.price = 0
+        item.cost = 0
         item.validate()
 
     with pytest.raises(ItemAttributeException):

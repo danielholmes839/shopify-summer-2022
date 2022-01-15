@@ -6,14 +6,14 @@ from app_tests.helpers import parameterized_db
 
 data = {
     'product': 'test_product',
-    'price': 1,
+    'cost': 1,
     'stock': 2,
     'collection': None
 }
 
 data2 = {
     'product': 'new_test_product',
-    'price': 10,
+    'cost': 10,
     'stock': 20,
     'collection': 'new_test_collection'
 }
@@ -105,12 +105,12 @@ def test_item_invalid(db: DB):
     # insert an invalid item
     with pytest.raises(ItemAttributeException):
         item = Item(data)
-        item.price = -1
+        item.cost = -1
         db.insert_item(item)
 
     # insert a valid item then update it with an invalid item
     with pytest.raises(ItemAttributeException):
         item = db.insert_item(Item(data))
-        item.price = -1
+        item.cost = -1
 
         db.update_item(item)

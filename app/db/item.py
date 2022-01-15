@@ -9,11 +9,11 @@ class Item:
         - the dictionary will come from a "ItemInput" in the graphql schema
         - the .get will replace missing attributes with None
           for example when inserting a item the id isn't generated until the db "insert_item" method is called
-        - the price is automatically rounded to 2 decimal places
+        - the cost is automatically rounded to 2 decimal places
         """
         self.id: str = item.get('id')
         self.product: str = item.get('product')
-        self.price: float = round(item.get('price'), 2)
+        self.cost: float = round(item.get('cost'), 2)
         self.stock: int = int(item.get('stock'))
         self.collection: Optional[str] = item.get('collection')
 
@@ -21,7 +21,7 @@ class Item:
         """ validation logic for before adding to a database
         - id is required
         - product name cannot be empty and cannot exceed 20 characters
-        - price must be greater than 0
+        - cost must be greater than 0
         - collection cannot be empty the default should be "None" which is like null
         """
         if self.id is None:
@@ -34,8 +34,8 @@ class Item:
             raise ItemAttributeException(
                 'product cannot exceed 20 characters')
 
-        elif self.price <= 0:
-            raise ItemAttributeException('item price must be greater than 0')
+        elif self.cost <= 0:
+            raise ItemAttributeException('item cost must be greater than 0')
 
         elif self.stock < 0:
             raise ItemAttributeException('item stock must be greater than 0')
@@ -52,19 +52,19 @@ class Item:
         return {
             'id': self.id,
             'product': self.product,
-            'price': self.price,
+            'cost': self.cost,
             'stock': self.stock,
             'collection': self.collection
         }
 
     def __repr__(self) -> str:
         """ formatting for debugging """
-        return f'Item({self.id}, {self.product}, {self.price}, {self.collection})'
+        return f'Item({self.id}, {self.product}, {self.cost}, {self.collection})'
 
     def __eq__(self, other: "Item") -> bool:
         return \
             self.id == other.id and \
             self.product == other.product and \
-            self.price == other.price and \
+            self.cost == other.cost and \
             self.stock == other.stock and \
             self.collection == other.collection
