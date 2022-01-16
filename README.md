@@ -75,6 +75,6 @@ The application is deployed using an entirely servless architecture on AWS with 
 
 ![architecture](./documentation/screenshots/aws.png)
 
-*"Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale"*. The data is stored on DynamoDB with the following data model:
+*"Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale"*. DynamoDB data model:
 
 ![dynamodb](./documentation/screenshots/dynamodb.PNG)
