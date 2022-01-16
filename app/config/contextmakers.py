@@ -11,7 +11,7 @@ class LocalContextMaker:
         self.db = MemoryDB([])
 
     def __call__(self, request: Request):
-        return Context(request, self.db),
+        return Context(request, self.db)
 
 
 class AWSContextMaker:
