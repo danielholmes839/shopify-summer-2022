@@ -49,8 +49,8 @@ python -m pytest --cov-report term-missing --cov=app.db app_tests/
 
 The application is deployed using an entirely servless architecture on AWS with API-Gateway, Lambda, and DynamoDB.
 
-![architecture](./screenshots/aws.png)
+![architecture](./documentation/screenshots/aws.png)
 
 The data is stored on DynamoDB with the following data model:
 
-![dynamodb](./screenshots/dynamodb.PNG)
+![dynamodb](./documentation/screenshots/dynamodb.PNG)
