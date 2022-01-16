@@ -14,7 +14,7 @@ The application is a GraphQL API that allows users to create, read, update, and 
 
 ## GraphQL API 
 
-GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
+The application is a GraphQL API writen in Python using FastAPI and Ariadne. GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
 
 **Design**
 
@@ -22,6 +22,8 @@ GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tu
 - The `Item` has a `product` field which is a string. In the future I think this would be a `Product` type with fields like description, name, and price.
 - There are three mutations for updating items: `itemUpdate`, `itemUpdateCollection` and `itemUpdateStock`. The `itemUpdate` mutation is a general update and can be used to update any field. The `itemUpdateCollection` and `itemUpdateStock` were added for convenience.
 - I decided not to implement pagination for the `items` and `itemsByCollection` queries.
+
+**GraphQL Schema**
 
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
