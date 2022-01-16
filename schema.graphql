@@ -35,8 +35,8 @@ type Mutation {
     # item update collection
     itemUpdateCollection(id: ID!, collection: String): ItemPayload!
 
-    # item update collection operation
-    itemUpdateStock(id: ID!, diff: Int!): ItemPayload!
+    # item update stock (increase or decrease)
+    itemUpdateStock(id: ID!, change: Int!): ItemPayload!
 
     # item delete operation
     itemDelete(id: ID!): ItemPayload!
