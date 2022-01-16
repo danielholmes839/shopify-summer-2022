@@ -56,7 +56,7 @@ def update_collection(_, ctx: Context, id: str, collection: str = None):
 @mutation.field('itemUpdateStock')
 @item_payload
 def update_stock(_, ctx: Context, id: str, change: int):
-    """ itemUpdateCollection mutation """
+    """ itemUpdateStock mutation """
     item = ctx.db.get_item(id)
     item.stock += change
     return ctx.db.update_item(item)
