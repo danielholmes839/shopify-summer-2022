@@ -3,7 +3,7 @@ scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
 type Item {
     id: ID!
     product: String!        
-    cost: Float!            # unit cost of the inventory is indepedent of cost 
+    cost: Float!            # unit cost
     stock: Int!             # units available
     collection: String
 

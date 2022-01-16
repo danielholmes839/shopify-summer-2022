@@ -6,15 +6,17 @@
 
 - Requirements: [Shopify Backend Developer Intern Challenge - Summer 2022](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit)
 - Extra feature chosen: *"Ability to assign/remove inventory items to a named group/collection"*.
-- Open **[shopify.holmes-dev.com](https://shopify.holmes-dev.com)** to use the application. No setup is required.
+- Open [shopify.holmes-dev.com](https://shopify.holmes-dev.com) to use the application. **No setup is required**.
 
 ## About
 
-The application is a GraphQL API that allows users to create, read, update, and delete inventory items. The extra feature I chose to implement was the ***"ability to assign/remove inventory items to a named group/collection"***. The application is deployed on Amazon Web Services (AWS) using a serverless architecture with API-Gateway, Lambda, and DynamoDB. 
+The application is a GraphQL API that allows users to create, read, update, and delete inventory items. The extra feature I chose to implement was the *"ability to assign/remove inventory items to a named group/collection"*. 
 
-## GraphQL API 
+The application is deployed on Amazon Web Services (AWS) using a serverless architecture with API-Gateway, Lambda, and DynamoDB. 
 
-The application is a GraphQL API writen in Python using FastAPI and Ariadne. GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
+## Application 
+
+The application is a GraphQL API writen in Python using [FastAPI](https://fastapi.tiangolo.com/) and [Ariadne](https://ariadnegraphql.org/). GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
 
 **Design**
 
@@ -25,13 +27,15 @@ The application is a GraphQL API writen in Python using FastAPI and Ariadne. Gra
 
 **GraphQL Schema**
 
+[schema.graphql](/schema.graphql)
+
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
 
 type Item {
     id: ID!
     product: String!        
-    cost: Float!            # unit cost of the inventory is indepedent of cost 
+    cost: Float!            # unit cost
     stock: Int!             # units available
     collection: String
     createdAt: DateTime!
