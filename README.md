@@ -30,6 +30,7 @@ docker run -d --name shopify-challenge-container -p 8000:8000 shopify-challenge-
 #### Environment Variables
 The only environment variables that's necessary is `CONTEXT`. If using `CONTEXT=LOCAL` no other environemnt variables are necessary. 
 
+```
 CONTEXT=AWS_DEV|AWS_PROD|LOCAL
 
 AWS_REGION_NAME=ca-central-1
