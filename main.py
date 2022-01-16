@@ -24,4 +24,4 @@ app.add_route('/graphql', graphql)
 app.add_route('/', lambda _: RedirectResponse('/graphql'))
 
 # AWS Lambda handler
-handler = Mangum(app)
+handler = Mangum(app, lifespan='auto')
