@@ -1,7 +1,6 @@
 import asyncio
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
-from starlette.requests import Request
 from ariadne import asgi
 from mangum import Mangum
 

@@ -1,4 +1,3 @@
-from this import d
 from app.db import ItemNotFound
 from app.middleware import Context, ObjectTypeWithContext
 
