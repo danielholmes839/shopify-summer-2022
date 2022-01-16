@@ -7,8 +7,8 @@ type Item {
     stock: Int!             # units available
     collection: String
 
-    createdAt: DateTime
-    updatedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
 
 # output for item mutations

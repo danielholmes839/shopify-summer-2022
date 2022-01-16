@@ -10,6 +10,8 @@
 
 ## GraphQL API 
 
+I decided to build the application as a GraphQL API. GraphQL is one of my favourite technologies and I know it's used heavily at Shopify. The GraphQL API allows users to perform CRUD ooperations on items. 
+
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
 
@@ -19,18 +21,15 @@ type Item {
     cost: Float!            # unit cost of the inventory is indepedent of cost 
     stock: Int!             # units available
     collection: String
-
-    createdAt: DateTime
-    updatedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
 
-# output for item mutations
 type ItemPayload {
     error: String
     item: Item
 }
 
-# input for item mutations
 input ItemInput {
     product: String!
     cost: Float!
