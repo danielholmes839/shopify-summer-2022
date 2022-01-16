@@ -12,10 +12,12 @@
 
 I decided to build the application as a GraphQL API. The GraphQL API allows users to perform CRUD operations on items.
 
-- **Create** using the `itemCreate` mutation
-- **Read** using `item`, `items` and `itemsByCollection` queries
-- **Update** using the `itemUpdate`, `itemUpdateCollection`, and `itemUpdateStock` mutations
-- **Delete** using the `itemDelete` mutation
+- Create: `itemCreate` mutation
+- Read: `item`, `items` and `itemsByCollection` queries
+- Update: `itemUpdate`, `itemUpdateCollection`, and `itemUpdateStock` mutations
+- Delete: `itemDelete` mutation
+
+test
 
 - The `Item` `collection` field is nullable. If the collection is `null` that means the item does not belong to a collection. Therefore the `itemUpdateCollection` mutation and `itemsByCollection` query allow the collection to be null as well.
 - The `Item` has a `product` field. In a full application the prudct would be an actual `Product` type instead of a string
