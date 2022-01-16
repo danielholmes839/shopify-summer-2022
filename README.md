@@ -20,7 +20,7 @@ Deployed using a servless architecture on AWS with API-Gateway, Lambda, and Dyna
 
 ![architecture](./screenshots/aws.png)
 
-![dynamodb](./screenshots/dynamodb.png)
+![dynamodb](./screenshots/dynamodb.PNG)
 
 Environment variables
 ```
