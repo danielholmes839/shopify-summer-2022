@@ -1,3 +1,4 @@
+from this import d
 from app.db import ItemNotFound
 from app.middleware import Context, ObjectTypeWithContext
 
@@ -17,10 +18,12 @@ def item_resolver(_, ctx: Context, id):
 @query.field('items')
 def items_resolver(_, ctx: Context):
     """ All items """
-    return ctx.db.get_items()
+    products = ctx.db.get_items()
+    return sorted(products, key=lambda product: product.created_at, reverse=True)
 
 
 @query.field('itemsByCollection')
 def items_by_collection_resolver(_, ctx: Context, collection):
     """ All items by collection """
-    return ctx.db.get_items_by_collection(collection)
+    products = ctx.db.get_items_by_collection(collection)
+    return sorted(products, key=lambda product: product.created_at, reverse=True)
