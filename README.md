@@ -10,7 +10,12 @@
 
 ## GraphQL API 
 
-I decided to build the application as a GraphQL API. GraphQL is one of my favourite technologies and I know it's used heavily at Shopify. The GraphQL API allows users to perform CRUD ooperations on items. 
+I decided to build the application as a GraphQL API. The GraphQL API allows users to perform CRUD operations on items.
+
+- The `Item` `collection` field is nullable. If the collection is `null` that means the item does not belong to a collection. Therefore the `itemUpdateCollection` mutation and `itemsByCollection` query allow the collection to be null as well.
+- The `Item` has a `product` field. In a full application the prudct would be an actual `Product` type instead of a string
+- There are 3 mutations for updating items: `itemUpdate`, `itemUpdateCollection` and `itemUpdateStock`. The `itemUpdate` is general and can be used to update any field. However I thought adding the `itemUpdateCollection` and `itemUpdateStock` would be convenient to use as well.
+- I didn't add any pagination for `items` or `itemsByCollection` but that would have been cool
 
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
