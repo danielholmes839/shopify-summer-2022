@@ -10,7 +10,7 @@
 
 ## About
 
-The application is a GraphQL API that allows users to create, read, update, and delete inventory items. The extra feature I chose to implement was the *ability to assign/remove inventory items to a named group/collection*. The application is deployed on Amazon Web Services (AWS) using a serverless architecture with API-Gateway, Lambda, and DynamoDB. 
+The application is a GraphQL API that allows users to create, read, update, and delete inventory items. The extra feature I chose to implement was the ***"ability to assign/remove inventory items to a named group/collection"***. The application is deployed on Amazon Web Services (AWS) using a serverless architecture with API-Gateway, Lambda, and DynamoDB. 
 
 ## GraphQL API 
 
