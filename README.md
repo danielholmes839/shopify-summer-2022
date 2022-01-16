@@ -5,7 +5,7 @@
 ## TLDR
 
 - Requirements: [Shopify Backend Developer Intern Challenge - Summer 2022](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit)
-- Extra feature chosen: *Ability to assign/remove inventory items to a named group/collection*
+- Extra feature chosen: *"Ability to assign/remove inventory items to a named group/collection"*.
 - Open **[shopify.holmes-dev.com](https://shopify.holmes-dev.com)** to use the application. No setup is required.
 
 ## About
@@ -21,7 +21,7 @@ GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tu
 - The `Item.collection` field is nullable. If the collection is `null` that means the item does not belong to a collection. Therefore the `itemUpdateCollection` mutation and `itemsByCollection` query allow the collection to be null as well.
 - The `Item` has a `product` field which is a string. In the future I think this would be a `Product` type with fields like description, name, and price.
 - There are three mutations for updating items: `itemUpdate`, `itemUpdateCollection` and `itemUpdateStock`. The `itemUpdate` mutation is a general update and can be used to update any field. The `itemUpdateCollection` and `itemUpdateStock` were added for convenience.
-- I decided not to implement pagination for the `items` and `itemsByCollection` queries
+- I decided not to implement pagination for the `items` and `itemsByCollection` queries.
 
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
@@ -65,10 +65,10 @@ type Query {
 
 ## Amazon Web Services
 
-The application is deployed using an entirely servless architecture on AWS with API-Gateway, Lambda, and DynamoDB.
+The application is deployed using an entirely servless architecture on AWS with [API-Gateway](https://aws.amazon.com/api-gateway/), [Lambda](https://aws.amazon.com/lambda/), and [DynamoDB](https://aws.amazon.com/dynamodb/).
 
 ![architecture](./documentation/screenshots/aws.png)
 
-The data is stored on DynamoDB with the following data model:
+*"Amazon DynamoDB is a fully managed, serverless, key-value NoSQL database designed to run high-performance applications at any scale"*. The data is stored on DynamoDB with the following data model:
 
 ![dynamodb](./documentation/screenshots/dynamodb.PNG)
