@@ -6,23 +6,22 @@
 
 - Requirements: [Shopify Backend Developer Intern Challenge - Summer 2022](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit)
 - Extra feature chosen: *Ability to assign/remove inventory items to a named group/collection*
-- Open [shopify.holmes-dev.com](https://shopify.holmes-dev.com) to run the application
+- Open [shopify.holmes-dev.com](https://shopify.holmes-dev.com) to use the application. No setup is required.
+
+## About
+
+The application is a GraphQL API that allows users to create, read, update, and delete inventory items. The extra feature I chose to implement was the *ability to assign/remove inventory items to a named group/collection*. The application is deployed on Amazon Web Services (AWS) using a serverless architecture with API-Gateway, Lambda, and DynamoDB. 
 
 ## GraphQL API 
 
-I decided to build the application as a GraphQL API. The GraphQL API allows users to perform CRUD operations on items.
+GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
 
-- Create: `itemCreate` mutation
-- Read: `item`, `items` and `itemsByCollection` queries
-- Update: `itemUpdate`, `itemUpdateCollection`, and `itemUpdateStock` mutations
-- Delete: `itemDelete` mutation
-
-test
+Design Decisions:
 
 - The `Item` `collection` field is nullable. If the collection is `null` that means the item does not belong to a collection. Therefore the `itemUpdateCollection` mutation and `itemsByCollection` query allow the collection to be null as well.
-- The `Item` has a `product` field. In a full application the prudct would be an actual `Product` type instead of a string
-- There are 3 mutations for updating items: `itemUpdate`, `itemUpdateCollection` and `itemUpdateStock`. The `itemUpdate` is general and can be used to update any field. However I thought adding the `itemUpdateCollection` and `itemUpdateStock` would be convenient to use as well.
-- I didn't add any pagination for `items` or `itemsByCollection` but that would have been cool
+- The `Item` has a `product` field which is a string. In the future I think this would be a `Product` type with fields like description, name, and price.
+- There are three mutations for updating items: `itemUpdate`, `itemUpdateCollection` and `itemUpdateStock`. The `itemUpdate` mutation is a general update and can be used to update any field. The `itemUpdateCollection` and `itemUpdateStock` were added for convenience.
+- I decided not to implement pagination for the `items` and `itemsByCollection` queries
 
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
