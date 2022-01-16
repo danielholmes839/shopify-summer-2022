@@ -8,10 +8,20 @@ from app.middleware import Context
 
 class LocalContextMaker:
     def __init__(self):
-        self.db = MemoryDB([])
+        self.inventories = {
+            'default': MemoryDB([])
+        }
 
     def __call__(self, request: Request):
-        return Context(request, self.db)
+        inventory = request.headers.get('inventory')
+        if inventory is None:
+            inventory = 'default'
+        
+        if inventory not in self.inventories:
+            self.inventories[inventory] = MemoryDB([])
+
+        db = self.inventories[inventory]
+        return Context(request, db)
 
 
 class AWSContextMaker:
