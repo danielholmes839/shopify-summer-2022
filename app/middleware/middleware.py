@@ -14,7 +14,7 @@ def resolver_with_context(resolver):
 
 
 class ObjectTypeWithContext:
-    """ Extends Ariadnes ObjectType to add a Context instance, 
+    """ Extends Ariadnes ObjectType to add a Context instance,
     and update argument names when necessary """
 
     def __init__(self, name: str, *args, **kwargs):

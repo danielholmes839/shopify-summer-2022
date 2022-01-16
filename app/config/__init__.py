@@ -1,5 +1,4 @@
 import os
-from async_timeout import asyncio
 import discord
 from dotenv import load_dotenv
 from app.middleware import ContextExtension

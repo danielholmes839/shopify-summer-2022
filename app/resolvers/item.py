@@ -10,5 +10,5 @@ def created_at(item: Item, _):
 
 
 @item.field('updatedAt')
-def created_at(item: Item, _):
+def updated_at(item: Item, _):
     return item.updated_at

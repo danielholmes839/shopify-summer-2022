@@ -1,6 +1,4 @@
-import os
 import discord
-import time
 from datetime import datetime
 
 

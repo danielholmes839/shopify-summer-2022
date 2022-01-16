@@ -1,4 +1,3 @@
-from re import T
 from boto3.dynamodb.conditions import Key, Attr
 from uuid import uuid4
 from typing import List

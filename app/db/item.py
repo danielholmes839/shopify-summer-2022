@@ -8,7 +8,8 @@ class Item:
         """ item constructor
         - the dictionary will come from a "ItemInput" in the graphql schema
         - the .get will replace missing attributes with None
-          for example when inserting a item the id isn't generated until the db "insert_item" method is called
+          for example when inserting a item the id isn't generated until the db 
+          "insert_item" method is called
         - the cost is automatically rounded to 2 decimal places
         """
         self.id: str = item.get('id')
