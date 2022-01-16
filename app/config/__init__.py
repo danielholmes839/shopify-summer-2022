@@ -47,5 +47,6 @@ if DISCORD_ENABLED:
     alerter = DiscordAlerter(
         intents=intents,
         token=token,
-        channel_id=channel_id
+        channel_id=channel_id,
+        context=CONTEXT,
     )
