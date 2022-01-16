@@ -1,12 +1,20 @@
+import asyncio
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
+from starlette.requests import Request
 from ariadne import asgi
 from mangum import Mangum
 
 from app.resolvers import resolvers
-from app.config import extensions
+from app.config import extensions, alerter
 
 app = FastAPI()
+
+
+@app.on_event('startup')
+async def startup():
+    """ app startup """
+    asyncio.create_task(alerter.start())
 
 # GraphQL endpoint
 graphql = asgi.GraphQL(
