@@ -7,8 +7,8 @@
 - Requirements: [Shopify Backend Developer Intern Challenge - Summer 2022](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit)
 - Extra feature chosen: *"Ability to assign/remove inventory items to a named group/collection"*
 - The appplication is a GraphQL API written in Python and deployed to AWS using: API-Gateway, Lambda and DynamoDB
-- **How to run the application:** Open [shopify.holmes-dev.com/graphql](https://shopify.holmes-dev.com). Instructions for running the application locally are available [here](./documentation/how-to-run.md)
-- **How to use the application:** Example GraphQL queries/mutations are available [here](./documentation/how-to-use.md)
+- **How to access the application:** [shopify.holmes-dev.com/graphql](https://shopify.holmes-dev.com). No setup is required however, instructions for running the application locally are available [here](./documentation/how-to-run.md)
+- **How to use the application:** example GraphQL queries/mutations are available [here](./documentation/how-to-use.md)
 
 ## Application 
 
