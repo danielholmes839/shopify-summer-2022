@@ -31,17 +31,17 @@ class Item:
             raise ItemAttributeException('item id missing')
 
         elif len(self.product) == 0:
-            raise ItemAttributeException('product cannot be empty')
+            raise ItemAttributeException('product name cannot be empty')
 
         elif len(self.product) > 20:
             raise ItemAttributeException(
-                'product cannot exceed 20 characters')
+                'product name cannot exceed 20 characters')
 
-        elif self.cost <= 0:
-            raise ItemAttributeException('item cost must be greater than 0')
+        elif self.cost < 0:
+            raise ItemAttributeException('item cost cannot be negative')
 
         elif self.stock < 0:
-            raise ItemAttributeException('item stock must be greater than 0')
+            raise ItemAttributeException('item stock cannot be negative')
 
         elif self.collection is not None and len(self.collection) == 0:
             raise ItemAttributeException('item collection cannot be empty')
