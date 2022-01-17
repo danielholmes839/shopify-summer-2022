@@ -1,7 +1,6 @@
 # How to use the application
 
-- Open 
-- If you're familiar with GraphQL it should be easy to use
+- Open [shopify.holmes-dev.com](https://shopify.holmes-dev.com/graphql)
 
 ## Headers
 
