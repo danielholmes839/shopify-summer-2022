@@ -40,7 +40,8 @@ def create(_, ctx: Context, input: dict):
 @item_payload
 def update(_, ctx: Context, id: str, input: dict):
     """ itemUpdate mutation """
-    item = Item({'id': id, **input})
+    created_at = ctx.db.get_item(id).created_at
+    item = Item({'id': id, 'created_at': created_at, **input})
     return ctx.db.update_item(item)
 
 
