@@ -1,5 +1,8 @@
 # How to use the application
 
+- Open 
+- If you're familiar with GraphQL it should be easy to use
+
 ## Headers
 
 Add an `inventory` header to your request when using the GraphQL API. This will keep your inventory separate from other users. 
