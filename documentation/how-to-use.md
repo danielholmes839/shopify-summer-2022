@@ -1,6 +1,16 @@
 # How to use the application
 
-Headers
+## Headers
+
+Add an `inventory` header to your request when using the GraphQL API. This will keep your inventory separate from other users. 
+
+```json
+{
+    "inventory": "default"
+}
+```
+
+![headers](./screenshots/headers.PNG)
 
 
 ## Examples
@@ -31,7 +41,7 @@ query {
     id
     product
     cost
-   	stock
+    stock
     collection
     createdAt
     updatedAt
@@ -93,7 +103,7 @@ mutation {
 }
 ```
 
-Delete an items
+Delete an item
 
 ```graphql
 mutation {
