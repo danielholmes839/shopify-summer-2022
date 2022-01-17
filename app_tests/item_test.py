@@ -46,7 +46,7 @@ def test_validate():
 
     with pytest.raises(ItemAttributeException):
         item = valid.copy()
-        item.cost = 0
+        item.cost = -1
         item.validate()
 
     with pytest.raises(ItemAttributeException):
