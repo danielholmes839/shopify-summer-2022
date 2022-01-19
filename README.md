@@ -10,7 +10,7 @@
 - **How to access the application:** [shopify.holmes-dev.com/graphql](https://shopify.holmes-dev.com). No setup is required however, instructions for running the application locally are available [here](./documentation/how-to-run.md)
 - **How to use the application:** example GraphQL queries/mutations are available [here](./documentation/how-to-use.md)
 
-## Application 
+## GraphQL API 
 
 The application is a GraphQL API writen in Python using [FastAPI](https://fastapi.tiangolo.com/) and [Ariadne](https://ariadnegraphql.org/). GraphQL is my favourite way to build APIs. I read the [Shopify GraphQL Design Tutorial](https://github.com/Shopify/graphql-design-tutorial/blob/master/TUTORIAL.md) when I learned GraphQL and I've kept it in mind especially when designing this API.
 
@@ -23,7 +23,7 @@ The application is a GraphQL API writen in Python using [FastAPI](https://fastap
 
 **GraphQL Schema**
 
-[schema.graphql](/schema.graphql)
+Full schema: [schema.graphql](/schema.graphql)
 
 ```graphql
 scalar DateTime # YYYY-MM-DDTHH:MM:SSZ
@@ -65,7 +65,7 @@ type Query {
 }
 ```
 
-## Amazon Web Services
+## Deployment
 
 The application is deployed using an entirely servless architecture on AWS with [API-Gateway](https://aws.amazon.com/api-gateway/), [Lambda](https://aws.amazon.com/lambda/), and [DynamoDB](https://aws.amazon.com/dynamodb/) allowing it to scale to the moon 🚀.
 
